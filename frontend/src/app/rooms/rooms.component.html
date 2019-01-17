@@ -1,0 +1,91 @@
+<div>
+    <app-spinner [spinnit]="loading"></app-spinner>
+  </div>
+
+    <!--*********** R  O  O  M  S ***********-->
+    <div *ngIf="!loading && !dashboardView">
+  
+        <!-- TABLE VIEW-->
+        <table class="shadow p-3 mb-5 rounded table table-hover table-striped">
+          <thead class="bg-info text-light">
+            <tr>
+              <th scope="col">NAME</th>
+              <th scope="col">GROESSE (m²)</th>
+              <th scope="col">ANZAHL FENSTER</th>
+              <th scope="col">ANZAHL TÜREN</th>
+              <th scope="col">erstellt am</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let room of rooms">
+            <tr (click)="navigateIntoRoom(room)">
+              <th scope="row">{{ room.name }}</th>    
+              <td>{{ room.square_meter }}</td>
+              <td>{{ room.count_windows }}</td>     
+              <td>{{ room.count_doors }}</td>
+              <td>{{ room.created_at }}</td>
+              <td> <a (click)="updateRoom(room)">
+                      <img id="icon-settings" src="/assets/img/settings.png" alt="icon-settings" >
+                    </a>
+              </td>
+              <td>
+                <a (click)="showDeleteRoomModal(room)">
+                    <img class="inverted" id="icon-trash" src="/assets/img/trash.png" alt="icon-trash" >      
+                  </a>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-outline-secondary" (click)="createRoom()">NEU</button>
+      
+      </div>
+
+<!-- DASHBOARD VIEW  -->
+<div *ngIf="!loading && dashboardView" class="grid grid-pad">
+    <a *ngFor="let room of rooms" class="col-1-5" >
+      <div class="module shadow mb-10 " (click)="navigateIntoRoom(room)">
+        <div id="trash-container">
+              <a (click)="showDeleteRoomModal(room)">
+                <img class="inverted" id="icon-trash" src="/assets/img/trash.png" alt="icon-trash" >      
+              </a>
+          </div>
+
+        <div id="settings-container">
+          <div id="icon-text"><h6>editieren</h6></div>
+          <a (click)="updateRoom(room)">
+          <img id="icon-settings" src="/assets/img/settings.png" alt="icon-settings" >
+              </a>
+        </div>
+        <h5 class="center">{{room.name}}</h5>
+      </div>
+    </a>
+    <a class="col-1-5" (click)="createRoom()">
+      <div class="module shadow mb-10">
+          <img class="center" src="/assets/img/add.svg" alt="icon-addproject"> 
+      </div>
+    </a>
+  </div>
+
+
+  <!-- M O D A L  -> DELETE ROOM  -->
+<div class="modal fade" id="deleteRoomModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-secondary text-light">
+          <h5 class="modal-title" id="exampleModalLabel">E N T F E R N E N:</h5>
+          <button (click)="onDismissDeleteModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Soll Raum <span class="font-weight-bold">"{{selectedRoom?.name}}"</span> permanent gelöscht werden?
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="onDismissDeleteModal()" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="button" (click)="deleteRoom()" class="btn btn-info">JA</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,11 @@
+<div *ngIf="show && appliancesGrouped">
+    <div class="row mt-4">
+        <h4 class="font-weight-light">Verbraucher:</h4>
+      </div>
+
+
+    <div *ngFor="let group of appliancesGrouped" class="row ml-2">
+        <h4><span class="badge badge-secondary">{{group.count}}x</span> </h4><p class="text-secondary ml-3 pt-1">{{group.typename}}</p>
+      </div>
+
+  </div>

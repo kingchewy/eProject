@@ -1,0 +1,152 @@
+
+.col-1-5 img{
+    filter: invert(70%);
+}
+
+.center
+{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+
+/* DashboardComponent's private CSS styles */
+[class*='col-'] {
+    float: left;
+    padding-right: 20px;
+    padding-bottom: 20px;
+  }
+  [class*='col-']:last-of-type {
+    padding-right: 0;
+  }
+  a {
+    text-decoration: none;
+    min-width: 160px;
+  }
+  *, *:after, *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  h3 {
+    text-align: center; margin-bottom: 0;
+  }
+  h5 {
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+  }
+  .grid {
+    margin: 0;
+  }
+  .col-1-5 {
+    width: 20%;
+  }
+  .module {
+      position: relative;
+    padding: 20px;
+    background: #1695a8;
+    color: #eee;
+    height: 140px;
+    width: 140px;
+    border-radius: 2px;
+  }
+  .module:hover {
+    background-color: #EEE;
+    cursor: pointer;
+    color: #17a2b8;
+  }
+  .grid-pad {
+    padding: 10px 0;
+  }
+  .grid-pad > [class*='col-']:last-of-type {
+    padding-right: 20px;
+  }
+
+  
+#settings-container{
+  margin-top: -17px;
+  margin-left: 100px;
+}
+
+#icon-settings{
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  opacity: 0.8;
+}
+
+#icon-settings:hover{
+  height: 25px;
+  width: 25px;
+  opacity: 1.0;
+}
+
+#trash-container{
+  margin-top: -17px;
+  margin-left: -17px;
+}
+
+#icon-trash{
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  opacity: 0.8;
+}
+
+#icon-trash:hover{
+  height: 25px;
+  width: 25px;
+  opacity: 1.0;
+}
+
+#icon-trash:hover #settings-container{
+  padding-top: -150px;
+  margin-left: 100px;
+}
+
+#icon-text{
+  display: none;
+  position: absolute;
+  color: grey;
+  right: -49px;
+  top: -22px;
+}
+
+#settings-container:hover #icon-text{
+  display: block;
+  position: absolute;
+  color: grey;
+  right: -49px;
+  top: -22px;
+
+}
+
+
+  @media (max-width: 600px) {
+    .module {
+      font-size: 10px;
+      max-height: 75px; }
+
+    #settings-container{
+      margin-top: -18px;
+    }
+  }
+  @media (max-width: 1024px) {
+    .grid {
+      margin: 0;
+    }
+    .module {
+      min-width: 140px;
+    }
+  }
+
+
+  
+  /*
+  Copyright 2017-2018 Google Inc. All Rights Reserved.
+  Use of this source code is governed by an MIT-style license that
+  can be found in the LICENSE file at http://angular.io/license
+  */

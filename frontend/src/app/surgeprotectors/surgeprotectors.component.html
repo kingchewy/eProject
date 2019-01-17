@@ -1,0 +1,132 @@
+
+
+<div>
+  <app-spinner [spinnit]="loading"></app-spinner>
+</div>
+
+
+
+
+<!-- ************************************************* -->
+<!--  S U R G E P R O T E C T O R S -->
+<div class="mt-5" *ngIf="!loading && surgeProtectors">
+
+  <div *ngFor="let sP of surgeProtectors">
+    <div class="d-flex bd-highlight shadow-sm p-2 mb-3 bg-light rounded">
+        
+      <a (click)="showUpdateSurgeProtectorModal(sP)">
+        <div class="mt-1 pl-3 pt-2 bd-highlight text-info">
+          <div>
+            <h5>{{sP.name}}</h5>
+          </div>            
+        </div>          
+      </a>
+      <div id="settings-container">
+        <div id="icon-text"><h6>löschen</h6></div>
+          <a (click)="showDeleteSurgeProtectorModal(sP)">
+            <img class="inverted" id="icon-settings" src="/assets/img/trash.png" alt="icon-settings" >      
+          </a>
+      </div>
+
+        <div class="ml-auto p-1 bd-highlight">  
+          <button class="btn btn-sm btn-outline-secondary mt-1" type="button" (click)="showCircuitBreakers(sP)">
+            Sicherungen zeigen
+          </button>        
+        </div>
+    </div>
+
+    <div *ngIf="selectedSurgeProtector?.id == sP.id" class="card card-body mb-5">
+        <!-- COLLAPSE -> Appliances for selected Type in Room-->
+        <app-circuitbreakers [surgeProtector]="sP" ></app-circuitbreakers>
+      </div>
+
+
+  </div>
+
+
+   <!-- ADD NEW SURGEPROTECTOR BUTTON -->
+  <div *ngIf="!loading && surgeProtectors" class="d-flex bd-highlight mb-5 shadow-sm p-2 mb-3 bg-light rounded">
+                    
+      <div class="pl-3 pt-2 bd-highlight text-dark">            
+        <a class="" (click)="showNewSurgeProtectorModal()">
+          <div class="">
+              <img class="center " src="/assets/img/add-small.png" alt="icon-addproject"> 
+          </div>
+        </a>
+      </div>
+      <div class="pl-5 pt-2 bd-highlight">
+        <h6 class="font-weight-light pt-1">FI hinzufügen</h6>
+      </div>
+      <div class="ml-auto p-1 bd-highlight">        
+        <button class="btn btn-sm btn-outline-secondary mt-1" type="button" (click)="showNewSurgeProtectorModal()">
+          NEU
+        </button>
+      </div>
+
+  </div>  
+</div>
+
+<!-- ************** M  O  D  A  L  S  ************** -->
+<!-- M O D A L  -> NEW SURGEPROTECTOR  -->
+<div class="modal fade" id="newSurgeProtectorModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-light">
+        <h5 class="modal-title" id="exampleModalLongTitle">ERSTELLE neuen FI</h5>
+        <button (click)="onDismissNewSurgeProtector()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-surgeprotectordetails *ngIf="modalNew" [newSurgeProtector]="true" [project]="activeProject" (onSurgeProtectorAction)="afterSurgeProtectorNew($event)"></app-surgeprotectordetails>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onDismissNewSurgeProtector()" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <button type="button" (click)="createSurgeProtector()" class="btn btn-info">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- M O D A L  -> UPDATE SURGEPROTECTOR  -->
+<div class="modal fade" id="updateSurgeProtectorModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-light">
+        <h5 class="modal-title" id="exampleModalLongTitle">Bearbeite "{{selectedSurgeProtector?.name}}"</h5>
+        <button (click)="onDismissUpdateModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-surgeprotectordetails *ngIf="selectedSurgeProtector?.id" (onSurgeProtectorAction)="afterSurgeProtectorUpdate($event)" [newSurgeProtector]="false" [selectedSurgeProtector]="selectedSurgeProtector"></app-surgeprotectordetails>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onDismissUpdateModal()" data-dismiss="modal">Abbrechen</button>
+        <button type="button" (click)="updateSurgeProtector()" class="btn btn-info">UPDATE</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- M O D A L  -> DELETE SURGEPROTECTOR  -->
+<div class="modal fade" id="deleteSurgeProtectorModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-secondary text-light">
+        <h5 class="modal-title" id="exampleModalLabel">E N T F E R N E N:</h5>
+        <button (click)="onDismissDeleteModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Soll FI <span class="font-weight-bold">"{{selectedSurgeProtector?.name}}"</span> permanent gelöscht werden?
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onDismissDeleteModal()" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <button type="button" (click)="deleteSurgeProtector()" class="btn btn-info">JA</button>
+      </div>
+    </div>
+  </div>
+</div>

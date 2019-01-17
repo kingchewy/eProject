@@ -1,0 +1,135 @@
+
+<div>
+  <app-spinner [spinnit]="loading"></app-spinner>
+</div>
+
+  <!-- ************** R  O  O  M  S **************** -->
+  <div *ngIf="!loading && !dashboardView">
+
+      <!-- T A B L E     V I E W  -->
+      <table class="shadow p-3 mb-5 rounded table table-hover table-striped">
+        <thead class="bg-info text-light">
+          <tr>
+            <th scope="col">NAME</th>
+            <th scope="col">Position</th>
+            <th scope="col">gehört zu</th>
+            <th scope="col">erstellt am</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let sensor of sensors">
+          <!-- Button to trigger UPDATE Appliance - Modal -->
+          <tr *ngIf="sensor.sensortype_id === sensorTypeId" (click)="showUpdateSensorModal(sensor)">
+            <th scope="row">{{ sensor.name }}</th>    
+            <td>{{ sensor.position }}</td>
+            <td>{{ assignedAppliances[sensor.id]?.name}} </td>
+            <td>{{ sensor.created_at }}</td>
+            <td> <a (click)="showUpdateSensorModal(sensor)">
+                <img id="icon-settings" src="/assets/img/settings.png" alt="icon-settings" >
+              </a>
+            </td>
+            <td>
+              <a (click)="showDeleteSensorModal(sensor)">
+                  <img class="inverted" id="icon-trash" src="/assets/img/trash.png" alt="icon-trash" >      
+                </a>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+        <!-- Button to trigger NEW Appliance - Modal -->
+      <button type="button" class="btn btn-outline-secondary" (click)="showNewSensorModal()">NEU</button>
+
+    </div>
+    
+    <!-- D A S H B O A R D     V I E W  -->
+    <div *ngIf="!loading && dashboardView" class="grid grid-pad">
+      <div *ngFor="let sensor of sensors">
+        <a *ngIf="sensor.sensortype_id == sensorTypeId" class="col-1-5" >
+          <!-- Button to trigger UPDATE Appliance - Modal -->
+          <div class="module shadow mb-10" (click)="showUpdateSensorModal(sensor)" >
+            
+            <div (click)="showDeleteSensorModal(sensor)" id="settings-container">
+              <div id="icon-text"><h6>löschen</h6></div>
+              <a >
+              <img id="icon-settings" src="/assets/img/trash.png" alt="icon-settings" >
+            </a>
+            </div>
+
+            <h5 class="center">{{sensor.name}}</h5>
+          </div>
+        </a>
+      </div>
+        <!-- Button to trigger NEW Appliance - Modal -->
+        <a class="col-1-5" (click)="showNewSensorModal()">
+          <div class="module shadow mb-10">
+            <img class="center" src="/assets/img/add.svg" alt="icon-addproject"> 
+          </div>
+        </a>
+      </div>
+
+
+<!-- M O D A L  -> NEW Appliance  -->
+<div class="modal fade" id="newSensorModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-light">
+          <h5 class="modal-title" id="exampleModalLongTitle">{{sensorTypeName}} hinzufügen</h5>
+          <button (click)="onDismissNewSensor()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-sensordetails *ngIf="modalNew" [newSensor]="true" [roomId]="roomId" [sensorTypeId]="sensorTypeId"></app-sensordetails>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="onDismissNewSensor()" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="button" (click)="createSensor(roomId)" class="btn btn-info">OK</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+<!-- M O D A L  -> UPDATE Appliance  -->
+<div class="modal fade" id="updateSensorModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-light">
+          <h5 class="modal-title" id="exampleModalLongTitle">Bearbeite "{{selectedSensor?.name}}"</h5>
+          <button (click)="onDismissUpdateSensor()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-sensordetails *ngIf="selectedSensorId" (sensorIdChange)="onUpdateChangeSensorId($event)" [newSensor]="false" [roomId]="roomId" [sensorId]="selectedSensorId"></app-sensordetails>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="onDismissUpdateSensor()" data-dismiss="modal">Abbrechen</button>
+          <button type="button" (click)="updateSensor()" class="btn btn-info">UPDATE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- M O D A L  -> DELETE Appliance  -->
+<div class="modal fade" id="deleteSensorModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-secondary text-light">
+          <h5 class="modal-title" id="exampleModalLabel">E N T F E R N E N:</h5>
+          <button (click)="onDismissDeleteSensor()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Soll {{SensorTypeName}} <span class="font-weight-bold">"{{selectedSensor?.name}}"</span> permanent gelöscht werden?
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="onDismissDeleteSensor()" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="button" (click)="deleteSensor()" class="btn btn-info">JA</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,32 @@
+<div class="mb-5 text-center text-secondary">
+  <h2 class=" font-weight-light">PROJEKT - KONFIGURATION</h2>
+</div>
+
+
+
+<div>
+    <app-spinner [spinnit]="loading"></app-spinner>
+  </div>
+
+
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link text-secondary font-weight-bold active" id="nav-fils-tab" data-toggle="tab" href="#nav-fils" role="tab" aria-controls="nav-fils" aria-selected="true">FI's & LS</a>
+      <a class="nav-item nav-link text-secondary font-weight-bold" id="nav-appliance-tab" data-toggle="tab" href="#nav-appliance" role="tab" aria-controls="nav-appliance" aria-selected="false">VERBRAUCHER <small>(KATEGORIEN)</small></a>
+      <a class="nav-item nav-link text-secondary font-weight-bold" id="nav-sensor-tab" data-toggle="tab" href="#nav-sensor" role="tab" aria-controls="nav-sensor" aria-selected="false">SENSOR <small>(KATEGORIEN)</small></a>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-fils" role="tabpanel" aria-labelledby="nav-fils-tab">
+      <app-surgeprotectors></app-surgeprotectors>  
+    </div>
+
+    <div class="tab-pane fade" id="nav-appliance" role="tabpanel" aria-labelledby="nav-appliance-tab">
+      <app-appliancecategories></app-appliancecategories>
+    </div>
+    
+    <div class="tab-pane fade" id="nav-sensor" role="tabpanel" aria-labelledby="nav-sensor-tab">
+      <app-sensorcategories></app-sensorcategories>
+    </div>
+  </div>
+

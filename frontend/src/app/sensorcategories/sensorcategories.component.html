@@ -1,0 +1,140 @@
+
+<div>
+  <app-spinner [spinnit]="loading"></app-spinner>
+</div>
+
+
+
+<!-- ************************************************* -->
+<!--  SENSOR CATEGORIES -->
+<div class="mt-5" *ngIf="!loading && sensorTypes">
+ 
+   <div *ngFor="let type of sensorTypes">
+     <div class="d-flex bd-highlight shadow-sm p-2 mb-3 bg-light rounded">
+         
+       <a (click)="showUpdateTypeModal(type)">
+         <div class="mt-1 pl-3 pt-2 bd-highlight text-info">
+           <div>
+             <h5>{{type.name}}</h5>
+           </div>            
+         </div>          
+       </a>
+       <div id="settings-container">
+         <div id="icon-text"><h6>löschen</h6></div>
+           <a (click)="showDeleteTypeModal(type)">
+             <img class="inverted" id="icon-settings" src="/assets/img/trash.png" alt="icon-settings" >      
+           </a>
+       </div>
+ 
+         <div class="ml-auto p-1 bd-highlight">  
+           <button class="btn btn-sm btn-outline-secondary mt-1" type="button" (click)="showUpdateTypeModal(type)">
+             bearbeiten
+           </button>        
+         </div>
+     </div>
+   </div>
+ 
+ 
+    <!-- BUTTON FOR NEW CATEGORIE -->
+   <div *ngIf="!loading && sensorTypes" class="d-flex bd-highlight mb-5 shadow-sm p-2 mb-3 bg-light rounded">
+                     
+       <div class="pl-3 pt-2 bd-highlight text-dark">            
+         <a class="" (click)="showNewSensorTypeModal()">
+           <div class="">
+               <img class="center " src="/assets/img/add-small.png" alt="icon-addproject"> 
+           </div>
+         </a>
+       </div>
+       <div class="pl-5 pt-2 bd-highlight">
+         <h6 class="font-weight-light pt-1">NEUE KATEGORIE</h6>
+       </div>
+       <div class="ml-auto p-1 bd-highlight">        
+         <button class="btn btn-sm btn-outline-secondary mt-1" type="button" (click)="showNewSensorTypeModal()">
+           NEU
+         </button>
+       </div>
+ 
+   </div>  
+ </div>
+
+
+ <!-- ******************* M O D A L S ******************** -->
+
+<!-- NEW -->
+<div class="modal fade" id="newSensorTypeModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-light">
+        <h5 class="modal-title" id="exampleModalLongTitle">NEUE KATEGORIE HINZUFÜGEN</h5>
+        <button (click)="onDismissNewModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="col-md-10 mb-3">
+              <label for="validationDefault01">Titel:</label>
+              <input type="text" class="form-control" id="validationDefault01" placeholder="z.B. Taster" [(ngModel)]="updatedSensorType.name" name="name" required>
+            </div>         
+          </div>
+        </div>  
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onDismissNewModal()" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <button type="button" (click)="createSensorType()" class="btn btn-info">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- UPDATE -->
+<div class="modal fade" id="updateSensorTypeModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-light">
+        <h5 class="modal-title" id="exampleModalLongTitle">Bearbeite "{{selectedSensorType?.name}}"</h5>
+        <button (click)="onDismissUpdateModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="col-md-10 mb-3">
+              <label for="validationDefault01">Titel:</label>
+              <input type="text" class="form-control" id="validationDefault01" placeholder="z.B. Taster" [(ngModel)]="updatedSensorType.name" name="name" required>
+            </div>         
+          </div>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onDismissUpdateModal()" data-dismiss="modal">Abbrechen</button>
+        <button type="button" (click)="updateSensorType()" class="btn btn-info">UPDATE</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+ <!-- DELETE  -->
+<div class="modal fade" id="deleteSensorTypeModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-light">
+        <h5 class="modal-title" id="exampleModalLabel">E N T F E R N E N:</h5>
+        <button (click)="onDismissDeleteModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Soll Sensorkategorie <span class="font-weight-bold">"{{selectedSensorType?.name}}"</span> wirklich gelöscht werden?
+        <br>
+        Alle dem Projekt zugeordneten Sensoren dieser Gruppe würden gelöscht werden!!
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onDismissDeleteModal()" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <button type="button" (click)="deleteSensorType()" class="btn btn-danger">JA</button>
+      </div>
+    </div>
+  </div>
+</div>

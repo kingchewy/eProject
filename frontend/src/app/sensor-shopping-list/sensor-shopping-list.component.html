@@ -1,0 +1,11 @@
+<div *ngIf="show && sensorsGrouped">
+    <div class="row mt-4">
+        <h4 class="font-weight-light">Sensoren:</h4>
+      </div>
+
+
+    <div *ngFor="let group of sensorsGrouped" class="row ml-2">
+        <h4><span class="badge badge-secondary">{{group.count}}x</span> </h4><p class="text-secondary ml-3 pt-1">{{group.typename}}</p>
+      </div>
+
+  </div>

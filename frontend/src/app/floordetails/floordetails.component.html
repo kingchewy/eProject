@@ -1,0 +1,59 @@
+
+<div>
+    <app-spinner [spinnit]="loading"></app-spinner>
+  </div>
+  
+  
+  <!-- EDIT FLOOR -->
+  <div *ngIf="!newFloor && !loading; else newFloorForm" class="jumbotron jumbotron-fluid shadow p-5 mb-3 bg-light">
+  
+      <h2 class="text-secondary font-weight-light">"{{floor.name}}" bearbeiten</h2>
+        <hr>
+        <form id="new-project text-white">
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">Stockwerk Name</label>
+                <input type="text" class="form-control" id="validationDefault01" placeholder="Name" [(ngModel)]="floor.name" name="floorname" required>
+              </div>
+            </div>
+            <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationDefault02">Ebene</label>
+                    <input type="number" class="form-control" id="validationDefault02" placeholder="0 = Keller, 1 = Erdgeschoss" [(ngModel)]="floor.count_from_basement" name="floorcount" required>
+                  </div>
+
+            </div>
+          <button type="button" class="btn btn-info" (click)="updateFloor()">UPDATE</button>
+          <button type="button" class="btn btn-outline-info" (click)="goBack()">ABBRECHEN</button>
+        </form>
+    </div>
+  
+  
+    <!-- NEW FLOOR-->
+    
+    
+    <ng-template #newFloorForm>
+      <div *ngIf="newFloor && !loading" class="jumbotron jumbotron-fluid shadow p-5 mb-3 bg-light">
+      
+        <h2 class="text-secondary font-weight-light">NEUE EBENE ANLEGEN</h2>
+        <hr>
+        <form id="new-project text-white">
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">Name der Ebene</label>
+                <input type="text" class="form-control" id="validationDefault01" placeholder="Name" [(ngModel)]="floor.name" name="floorname" required>
+              </div>
+            </div>
+            <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationDefault02">Nummer der Ebene</label>
+                    <input type="number" class="form-control" id="validationDefault02" placeholder="0 = Keller, 1 = Erdgeschoss" [(ngModel)]="floor.count_from_basement" name="floorcount" required>
+                  </div>
+
+            </div>
+            <button type="button" class="btn btn-info" (click)="createFloor()">SPEICHERN</button>
+            <button type="button" class="btn btn-outline-info" (click)="goBack()">ABBRECHEN</button>
+          </form>
+      </div>
+  
+  </ng-template>

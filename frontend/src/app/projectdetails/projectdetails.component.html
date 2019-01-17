@@ -1,0 +1,91 @@
+
+<div>
+  <app-spinner [spinnit]="loading"></app-spinner>
+</div>
+
+
+<!-- EDIT PROJECT -->
+<div *ngIf="!newProject && !loading; else newProjectForm" class="jumbotron jumbotron-fluid shadow p-5 mb-3 bg-light">
+
+    <h2 class="text-secondary font-weight-light">PROJEKT & KUNDENDATEN</h2>
+    <hr>
+    <form id="new-project text-white">
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="validationDefault01">Projekt</label>
+            <input type="text" class="form-control" id="validationDefault01" placeholder="Projektname" [(ngModel)]="project.name" name="projektname" required>
+          </div>
+        </div>
+        <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault02">Kunde</label>
+                <input type="text" class="form-control" id="validationDefault02" placeholder="Kundenname" [(ngModel)]="project.customer_name" name="customername" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefaultUsername">e-mail</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                  </div>
+                  <input type="text" class="form-control" id="validationDefaultUsername" placeholder="max@muster.com" [(ngModel)]="project.customer_email" name="customermail" aria-describedby="inputGroupPrepend2" required>
+                </div>
+              </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault03">Adresse</label>
+            <input type="text" class="form-control" id="validationDefault03" placeholder="bsp. Karl-Theo-Gasse 3, 2285 Leopoldsdorf" [(ngModel)]="project.address" name="address" required>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="validationDefault04">Telefonnummer</label>
+            <input type="text" class="form-control" id="validationDefault04" placeholder="0660 xxxxx" [(ngModel)]="project.phone_number" name="phonenumber" required>
+          </div>
+        </div>
+        <button type="button" class="btn btn-info" (click)="updateProject()">UPDATE</button>
+        <button type="button" class="btn btn-outline-info" (click)="goBack()">ABBRECHEN</button>
+      </form>
+  </div>
+
+
+  <!-- NEW PROJECT-->
+  
+  
+  <ng-template #newProjectForm>
+    <div *ngIf="newProject && !loading" class="jumbotron jumbotron-fluid shadow p-5 mb-3">
+    
+      <h3 class="text-dark">Neues Projekt anlegen</h3>
+      <hr>
+      <form id="new-project text-white">
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="validationDefault01">Projekt</label>
+              <input type="text" class="form-control" id="validationDefault01" placeholder="Projektname" [(ngModel)]="project.name" name="projektname" required>
+            </div>
+          </div>
+          <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="validationDefault02">Kunde</label>
+                  <input type="text" class="form-control" id="validationDefault02" placeholder="Kundenname" [(ngModel)]="project.customer_name" name="customername" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationDefaultUsername">e-mail</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                    </div>
+                    <input type="text" class="form-control" id="validationDefaultUsername" placeholder="max@muster.com" [(ngModel)]="project.customer_email" name="customermail" aria-describedby="inputGroupPrepend2" required>
+                  </div>
+                </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault03">Adresse</label>
+              <input type="text" class="form-control" id="validationDefault03" placeholder="bsp. Karl-Theo-Gasse 3, 2285 Leopoldsdorf" [(ngModel)]="project.address" name="address" required>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="validationDefault04">Telefonnummer</label>
+              <input type="text" class="form-control" id="validationDefault04" placeholder="0660 xxxxx" [(ngModel)]="project.phone_number" name="phonenumber" required>
+            </div>
+          </div>
+          <button type="button" class="btn btn-info" (click)="createProject()">SPEICHERN</button>
+          <button type="button" class="btn btn-outline-info" (click)="goBack()">ABBRECHEN</button>
+        </form>
+    </div>
+
+</ng-template>

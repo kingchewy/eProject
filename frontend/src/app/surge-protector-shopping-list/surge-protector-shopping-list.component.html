@@ -1,0 +1,14 @@
+
+
+
+<div *ngIf="show && surgeProtectorsGrouped">
+  <div  class="row">
+      <h4 class="font-weight-light">FI's:</h4>
+  </div>
+  <div *ngFor="let group of surgeProtectorsGrouped" class="row ml-2">
+    <h4><span class="badge badge-secondary">{{group.count}}x</span> </h4><p class="text-secondary ml-3 pt-1">{{group.number_of_poles}}-polig / {{group.amperage}} / {{group.release_current}}</p>
+  </div>
+  
+</div>
+
+  

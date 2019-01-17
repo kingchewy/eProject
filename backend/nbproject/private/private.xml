@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/app/Http/Controllers/SensorController.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/.env</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/database/migrations/2018_08_14_124527_create_sensors_table.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/app/Http/Controllers/UserController.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/app/Appliance.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/app/Http/Middleware/CorsMiddleware.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/app/Room.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/bootstrap/app.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/database/migrations/2018_08_02_074919_create_users_table.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/app/Http/Controllers/FebUserController.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/app/FebUser.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/app/Http/Controllers/FloorController.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/app/User.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/e-project-lumen/database/migrations/2018_10_14_120513_create_feb_users_table.php</file>
+        </group>
+    </open-files>
+</project-private>

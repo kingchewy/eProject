@@ -1,0 +1,27 @@
+<div class="form-row">
+    <div class="col-md-10 mb-3">
+      <label for="validationDefault01">Name:</label>
+      <input type="text" class="form-control" id="validationDefault01" placeholder="Name" [(ngModel)]="selectedSurgeProtector.name" name="name" required>
+    </div>
+
+    
+  </div>
+  
+  <div class="form-row d-flex">
+    <div class="col-md-2 mb-6">
+        <label for="validationDefault02">Polzahl:</label>
+        <input type="text" class="form-control" id="validationDefault02" placeholder="Pole" [(ngModel)]="selectedSurgeProtector.number_of_poles" name="number_of_poles" required>
+      </div>
+
+    <div class="col-md-2 mb-3">
+        <label for="validationDefault03">Ampere:</label>
+        <input type="text" class="form-control" id="validationDefault03" placeholder="A" [(ngModel)]="selectedSurgeProtector.amperage" name="amperage" required>
+      </div>
+
+      <div class="col-md-2 mb-3">
+          <label for="validationDefault04">mA:</label>
+          <input type="text" class="form-control" id="validationDefault04" placeholder="mA" [(ngModel)]="selectedSurgeProtector.release_current" name="release_current" required>
+        </div>
+  </div>
+
+  

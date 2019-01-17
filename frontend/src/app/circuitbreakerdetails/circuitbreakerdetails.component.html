@@ -1,0 +1,25 @@
+<div class="form-row">
+  <div class="col-md-10 mb-3">
+    <label for="validationDefault01">Beschreibung:</label>
+    <input type="text" class="form-control" id="validationDefault01" placeholder="Name" [(ngModel)]="selectedCircuitBreaker.name" name="name" required>
+  </div>
+
+  
+</div>
+
+<div class="form-row d-flex">
+  <div class="col-md-2 mb-6">
+      <label for="validationDefault02">Polzahl:</label>
+      <input type="text" class="form-control" id="validationDefault02" placeholder="" [(ngModel)]="selectedCircuitBreaker.number_of_poles" name="number_of_poles" required>
+    </div>
+
+  <div class="col-md-2 mb-3">
+      <label for="validationDefault03">Ampere:</label>
+      <input type="text" class="form-control" id="validationDefault03" placeholder="" [(ngModel)]="selectedCircuitBreaker.amperage" name="amperage" required>
+    </div>
+
+    <div class="col-md-2 mb-3">
+        <label for="validationDefault04">Typ:</label>
+        <input type="text" class="form-control" id="validationDefault04" placeholder="" [(ngModel)]="selectedCircuitBreaker.tripping_characteristic" name="release_current" required>
+      </div>
+</div>

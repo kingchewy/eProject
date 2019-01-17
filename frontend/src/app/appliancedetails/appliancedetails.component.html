@@ -1,0 +1,156 @@
+
+<div>
+    <app-spinner [spinnit]="loading"></app-spinner>
+  </div>
+
+  
+  <!-- *********** U D P A T E    A P P L I A N C E  ********** -->
+  <div *ngIf="!newAppliance && !loading; else newApplianceForm" class="">
+  
+      <form id="new-project text-white">
+
+          <div class="form-row">
+            <div class="col-md-10 mb-3">
+              <label for="validationDefault01">Name:</label>
+              <input type="text" class="form-control" id="validationDefault01" placeholder="Name" [(ngModel)]="appliance.name" name="appliancename" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col-md-10 mb-3">
+              <label for="validationDefault02">Position:</label>
+              <input type="text" class="form-control" id="validationDefault02" placeholder="position" [(ngModel)]="appliance.position" name="position" required>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+            <div class="col-md-4 mb-3">              
+              <!-- D R O P D O W N  for  FI's-->
+                <div class="dropdown show">
+                    <a class="btn btn-light dropdown-toggle" role="button" id="dropdownFIs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{selectedSurgeProtector?.name || "FI"}}
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownFIs">
+                      <div *ngFor="let sP of surgeProtectors">
+                        <a class="dropdown-item" (click)="onChangeGetCircuitBreakers(sP)">{{sP.name}} / {{sP.number_of_poles}}-polig / {{sP.amperage}}A</a>
+
+                      </div>
+                    </div>
+                 </div>                
+            </div>
+          </div>
+            
+          <div class="form-row">
+              <div class="col-md-4 mb-3">
+            <!-- D R O P D O W N  for  CircuitBreakers -->
+                  <div class="dropdown show">
+                    <a class="btn btn-light dropdown-toggle" role="button" id="dropdownCircuitBreakers" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{selectedCircuitBreaker?.name || "Sicherungen"}}
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownCircuitBreakers">
+                      <div *ngFor="let cB of circuitBreakers">
+                        <a class="dropdown-item" (click)="setCircuitBreaker(cB)">{{cB.name}} / {{cB.number_of_poles}}-polig / {{cB.amperage}} / {{cB.tripping_characteristic}}</a>
+
+                      </div>
+                    </div>
+                  </div>            
+                </div>
+            </div>
+        </form>
+    </div>
+  
+  
+    <!-- ************ N E W   A P P L I A N C E  ************* -->
+  <ng-template #newApplianceForm>
+      <div *ngIf="newAppliance && !loading" class="">      
+       
+        <form id="new-project text-white">
+
+            <div *ngIf="newApplianceInCategory" class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputState">Kategorie:</label>
+                  <select id="inputState" class="form-control" [(ngModel)]="selectedApplianceType" (ngModelChange)="onApplianceTypeSelected($event)" name="applianceType">
+                    <option [ngValue]="null">wähle...</option>
+                    <option *ngFor="let applianceType of applianceTypes" class="font-weight-bold" [ngValue]="applianceType">{{applianceType.name}}</option>
+                  </select>
+                </div>
+              </div>
+
+            <div class="form-row">
+              <div class="col-md-10 mb-3">
+                <label for="validationDefault01">Name:</label>
+                <input type="text" class="form-control" id="validationDefault01" placeholder="Name" [(ngModel)]="appliance.name" name="appliancename" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+                  <div class="col-md-10 mb-3">
+                    <label for="validationDefault02">Position:</label>
+                    <input type="text" class="form-control" id="validationDefault02" placeholder="position" [(ngModel)]="appliance.position" name="position" required>
+                  </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <!-- D R O P D O W N  for  FI's-->
+                  <div class="dropdown show">
+                      <a class="btn btn-light dropdown-toggle" role="button" id="dropdownFIs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{selectedSurgeProtector?.name || "FI's"}}
+                      </a>
+                    
+                      <div class="dropdown-menu" aria-labelledby="dropdownFIs">
+                        <div *ngFor="let sP of surgeProtectors">
+                          <a class="dropdown-item" (click)="onChangeGetCircuitBreakers(sP)">{{sP.name}} / {{sP.number_of_poles}}-polig / {{sP.amperage}}</a>
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+                                  <!-- M O D A L  -> NEW Appliance  -->
+                    <div class="modal fade" id="newSurgeProtectorModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header bg-info text-light">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Neuer FI</h5>
+                              <button (click)="onDismissNewSurgeProtector()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <app-surgeprotectordetails *ngIf=showAddSurgeProtector [projectId]="projectId" (showAddSurgeProtectorChange)="onShowAddSurgeProtectorChange($event)"></app-surgeprotectordetails>>
+                            <div class="modal-footer">
+                              <button type="button" (click)="onDismissNewSurgeProtector()" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                              <button type="button" (click)="createSurgeProtector()" class="btn btn-info">OK</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+              <!-- D R O P D O W N  for  CircuitBreakers -->
+              <div class="dropdown show">
+                  <a class="btn btn-light dropdown-toggle" role="button" id="dropdownCircuitBreakers" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{selectedCircuitBreaker?.name || "Sicherungen"}}
+                  </a>
+                
+                  <div class="dropdown-menu" aria-labelledby="dropdownCircuitBreakers">
+                    <div *ngFor="let cB of circuitBreakers">
+                      <a class="dropdown-item" (click)="setCircuitBreaker(cB)">{{cB.name}} / {{cB.number_of_poles}}-polig / {{cB.amperage}} / {{cB.trippingcharacteristic}}</a>
+
+                    </div>
+                  </div>
+                </div>              
+              </div>
+            </div>
+
+          </form>
+      </div>  
+  </ng-template>

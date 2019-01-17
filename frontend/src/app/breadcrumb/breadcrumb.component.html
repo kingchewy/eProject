@@ -1,0 +1,6 @@
+<nav *ngIf="(isLoggedIn | async) && project.name" class="breadcrumb">
+    <a *ngIf="project" class="breadcrumb-item" href="#">{{project.name}}</a>
+    <a *ngIf="floor" class="breadcrumb-item" href="#">{{floor.name}}</a>
+    <a *ngIf="room" class="breadcrumb-item" href="#">{{room.name}}</a>
+    <span class="breadcrumb-item active">Bootstrap</span>
+  </nav>

@@ -1,0 +1,12 @@
+
+      <div *ngIf="show && circuitBreakersGrouped">
+        <div class="row mt-4">
+            <h4 class="font-weight-light">Sicherungsautomaten:</h4>
+          </div>
+   
+  
+        <div *ngFor="let group of circuitBreakersGrouped" class="row ml-2">
+            <h4><span class="badge badge-secondary">{{group.count}}x</span> </h4><p class="text-secondary ml-3 pt-1">Kennlinie {{group.tripping_characteristic}} / {{group.number_of_poles}}-polig / {{group.amperage}}</p>
+          </div>
+
+      </div>

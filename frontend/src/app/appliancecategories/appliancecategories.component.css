@@ -1,0 +1,52 @@
+.inverted {
+	filter: invert(100%);
+}
+
+sup{
+	font-size: 12px;
+}
+
+#icon-settings{
+    height: 16px;
+    width: 16px;
+}
+
+.center-title{
+	margin: auto;
+
+}
+
+#settings-container{
+	margin-top: 8px;
+	margin-left:35px;
+	margin-right: 10px;
+  }
+  
+  #icon-settings{
+	height: 16px;
+	width: 16px;
+	opacity: 0.3;
+  }
+  
+  #icon-settings:hover{
+	height: 25px;
+	width: 25px;
+	opacity: 1.0;
+  }
+  
+  #icon-text{
+	display: none;
+	position: absolute;
+	padding-left: 27px;
+	padding-top: 2px;
+	color: grey;
+	
+  }
+  
+  #settings-container:hover #icon-text{
+	display: block;
+	position: absolute;
+	color: grey;
+	padding-left: 27px;
+	padding-top: 2px;
+  }

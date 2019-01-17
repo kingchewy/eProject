@@ -1,0 +1,56 @@
+    <nav *ngIf="(isLoggedIn | async)" class="navbar navbar-expand-md navbar-dark bg-info">
+
+      <a class="navbar-brand font-italic" routerLink="/main/projects">
+        <img id="icon-app" src="/assets/img/app-icon.png" class="d-inline-block align-top" alt="app-logo">
+        e-lumpi
+      </a>
+
+      
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+     </button> 
+
+        <div class="my-nav-items collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item ">
+              <a class="nav-link" routerLink="/main/projects">Projekte <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/main/admin">Admin</a>
+            </li>
+            <li>
+                <div id="switch" class="">
+                    <app-view-switch></app-view-switch>
+                </div>
+            </li>
+
+          </ul>
+        </div>
+
+        
+      <div *ngIf="selectedProject.name">        
+          <a routerLink="/main/projects/{{selectedProject.id}}/floors">
+            <img class="mb-2 mr-3" id="icon-home" src="/assets/img/home-icon.png">
+          </a>
+
+        <div id="title" class="navbar-brand h1 mb-0 dropdown show">
+            
+          <a class=" dropdown-toggle ml-0 mr-2 text-white" href="#"  id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               {{selectedProject.name || ""}}
+            </a>
+          
+            <div class="dropdown-menu bg-white shadow-sm" aria-labelledby="dropdownMenuLink">
+              <h6 class="font-weight-light ml-3">MENÜ</h6> 
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-secondary" routerLink="/main/projects/{{selectedProject.id}}">Projekt/Kundendaten</a>
+              <a class="dropdown-item text-secondary" routerLink= "/main/projects/{{selectedProject.id}}/config">E-Konfiguration</a>
+              <a class="dropdown-item text-secondary" routerLink="/main/shoppinglist">Einkaufsliste</a>
+            </div>
+          </div>
+
+      </div>              
+        <!-- LOGOUT BUTTON-->
+        <div>
+            <button (click)="onLogout()" type="button" class="btn btn-outline-secondary ml-2">LOGOUT</button>
+        </div>
+      </nav>

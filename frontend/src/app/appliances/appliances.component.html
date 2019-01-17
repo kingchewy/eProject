@@ -1,0 +1,137 @@
+
+<div>
+    <app-spinner [spinnit]="loading"></app-spinner>
+  </div>
+
+  
+    <div *ngIf="!loading && !dashboardView">
+  
+        <!------- T A B L E     V I E W  -------->
+        <table class="shadow p-3 mb-5 rounded table table-hover table-striped">
+          <thead class="bg-info text-light">
+            <tr>
+              <th scope="col">NAME</th>
+              <th scope="col">Position</th>
+              <th scope="col">FI</th>
+              <th scope="col">Sicherung</th>
+              <th scope="col">erstellt am</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let appliance of appliances">
+            <!-- Button to trigger UPDATE Appliance - Modal -->
+            <tr *ngIf="appliance.appliancetype_id === applianceTypeId && assignedSurgeProtectors != null" (click)="showUpdateApplianceModal(appliance)">
+              <th scope="row">{{ appliance.name }}</th>    
+              <td>{{ appliance.position }}</td>
+              <td>{{assignedSurgeProtectors[appliance.id]?.name}} </td>     
+              <td>{{assignedCircuitBreakers[appliance.id]?.name}}</td>
+              <td>{{ appliance.created_at }}</td>
+              <td> <a (click)="showUpdateApplianceModal(appliance)">
+                  <img id="icon-settings" src="/assets/img/settings.png" alt="icon-settings" >
+                </a>
+              </td>
+              <td>
+                <a (click)="showDeleteApplianceModal(appliance)">
+                    <img class="inverted" id="icon-trash" src="/assets/img/trash.png" alt="icon-trash" >      
+                  </a>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+          <!-- Button to trigger NEW Appliance - Modal -->
+        <button type="button" class="btn btn-outline-secondary" (click)="showNewApplianceModal()">NEU</button>
+
+      </div>
+      
+      <!---------- D A S H B O A R D     V I E W  ----------->
+      <div *ngIf="!loading && dashboardView" class="grid grid-pad">
+        <div *ngFor="let appliance of appliances">
+          <a *ngIf="appliance.appliancetype_id == applianceTypeId" class="col-1-5" >
+            <!-- Button to trigger UPDATE Appliance - Modal -->
+            <div class="module shadow mb-10" (click)="showUpdateApplianceModal(appliance)" >
+              
+              <div (click)="showDeleteApplianceModal(appliance)" id="settings-container">
+                <div id="icon-text"><h6>löschen</h6></div>
+                <a >
+                <img id="icon-settings" src="/assets/img/trash.png" alt="icon-settings" >
+              </a>
+              </div>
+
+              <h5 class="center">{{appliance.name}}</h5>
+            </div>
+          </a>
+        </div>
+          <!-- Button to trigger NEW Appliance - Modal -->
+          <a class="col-1-5" (click)="showNewApplianceModal()">
+            <div class="module shadow mb-10">
+              <img class="center" src="/assets/img/add.svg" alt="icon-addproject"> 
+            </div>
+          </a>
+        </div>
+
+        
+<!-- ***************************  M O D A L S   ************************* -->
+<!-- M O D A L  -> NEW Appliance  -->
+<div class="modal fade" id="newApplianceModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-light">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{applianceTypeName}} hinzufügen</h5>
+        <button (click)="onDismissNewAppliance()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-appliancedetails *ngIf="modalNew" [newAppliance]="true" [projectId]="project.id" [applianceTypeId]="applianceTypeId"></app-appliancedetails>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onDismissNewAppliance()" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <button type="button" (click)="createAppliance(roomId)" class="btn btn-info">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- M O D A L  -> UPDATE Appliance  -->
+  <div class="modal fade" id="updateApplianceModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header bg-info text-light">
+            <h5 class="modal-title" id="exampleModalLongTitle">Bearbeite "{{selectedAppliance?.name}}"</h5>
+            <button (click)="onDismissUpdateAppliance()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <app-appliancedetails *ngIf="selectedApplianceId" (applianceIdChange)="onUpdateChangeApplianceId($event)" [newAppliance]="false" [applianceId]="selectedApplianceId" [projectId]="project.id"></app-appliancedetails>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="onDismissUpdateAppliance()" data-dismiss="modal">Abbrechen</button>
+            <button type="button" (click)="updateAppliance()" class="btn btn-info">UPDATE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+        <!-- M O D A L  -> DELETE Appliance  -->
+  <div class="modal fade" id="deleteApplianceModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-secondary text-light">
+          <h5 class="modal-title" id="exampleModalLabel">E N T F E R N E N:</h5>
+          <button (click)="onDismissDeleteAppliance()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Soll {{applianceTypeName}} <span class="font-weight-bold">"{{selectedAppliance?.name}}"</span> permanent gelöscht werden?
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="onDismissDeleteAppliance()" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+          <button type="button" (click)="deleteAppliance()" class="btn btn-info">JA!</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,37 @@
+<div id="contentToConvert">
+  
+  <div class="mb-5 text-center text-secondary border-bottom">
+      <h2 class=" font-weight-light">EINKAUFSLISTE</h2>
+    </div>
+  
+    
+    
+    
+    <!-- LISTCONTAINER-->
+    <div [ngClass]="{'jumbotron':loadingAllFinished,  'pt-5':loadingAllFinished}">
+      <div class="container">
+        <div>
+            <app-spinner [spinnit]="!loadingAllFinished"></app-spinner>
+          </div>
+
+          <div *ngIf="noSPsAvailable" >
+              <h4 class="font-weight-light text-center">Dem Projekt wurden noch keine FI's/LS zugewiesen.</h4>
+          </div>
+        
+      <!-- SURGEPROTECTOR CONTAINER-->
+      <app-surge-protector-shopping-list *ngIf="selectedProject" (onSurgeProtectorsReady)="onSurgeProtectorsReady($event)" [project]="selectedProject" [show]="loadingAllFinished"></app-surge-protector-shopping-list>
+      
+      <!-- CIRCUITBREAKER CONTAINER-->  
+      <app-circuit-breaker-shopping-list *ngIf="selectedSurgeProtectors" (onCircuitBreakersReady)="onCircuitBreakersReady($event)" [surgeProtectors]="selectedSurgeProtectors" [show]="loadingAllFinished"></app-circuit-breaker-shopping-list>
+
+      <app-sensor-shopping-list *ngIf="roomsLoaded" (onSensorsReady)="onSensorsReady($event)" [roomsOfProject]="roomsOfProject" [show]="loadingAllFinished"></app-sensor-shopping-list>
+
+      <app-appliance-shopping-list *ngIf="roomsLoaded" (onAppliancesReady)="onAppliancesReady($event)" [roomsOfProject]="roomsOfProject" [show]="loadingAllFinished"></app-appliance-shopping-list>
+
+    </div>
+  </div>
+
+</div>
+
+
+<button (click)="toPdf()">PDF</button>

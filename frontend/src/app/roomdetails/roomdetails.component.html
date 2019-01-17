@@ -1,0 +1,92 @@
+
+<div *ngIf="!loading && floor" class="mb-4 text-center text-secondary border-bottom">
+    <h2 class="text-dark font-weight-light">{{floor.name}}</h2>
+  </div>
+  
+
+<div>
+    <app-spinner [spinnit]="loading"></app-spinner>
+  </div>
+  
+  
+  <!-- EDIT ROOM -->
+  <div *ngIf="!newRoom && !loading && room.name; else newRoomForm" class="jumbotron jumbotron-fluid shadow p-5 mb-3 bg-light">
+  
+      <h3 class="text-secondary font-weight-light">"{{room.name}}" bearbeiten</h3>
+        <hr>
+        <form id="new-project text-white">
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">Raum Name</label>
+                <input type="text" class="form-control" id="validationDefault01" placeholder="Name" [(ngModel)]="room.name" name="roomname" required>
+              </div>
+            </div>
+            <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationDefault02">Grösse (m²)</label>
+                    <input type="number" class="form-control" id="validationDefault02" placeholder="zb. 5.6" [(ngModel)]="room.square_meter" name="squaremeter" required>
+                  </div>
+
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="validationDefault03">Fenster</label>
+                  <input type="number" class="form-control" id="validationDefault03" placeholder="Anzahl Fenster" [(ngModel)]="room.count_windows" name="windowcount" required>
+                </div>
+
+          </div>
+          <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault04">Türen</label>
+                <input type="number" class="form-control" id="validationDefault04" placeholder="Anzahl Türen" [(ngModel)]="room.count_doors" name="doorcount" required>
+              </div>
+
+        </div>
+          <button type="button" class="btn btn-info" (click)="updateRoom()">UPDATE</button>
+          <button type="button" class="btn btn-outline-info" (click)="goBack()">ABBRECHEN</button>
+        </form>
+    </div>
+  
+  
+    <!-- NEW ROOM-->
+    
+    
+    <ng-template #newRoomForm>
+      <div *ngIf="newRoom && !loading" class="jumbotron jumbotron-fluid shadow p-5 mb-3 bg-light">
+      
+        <h3 class="text-secondary font-weight-light">Neuen Raum anlegen</h3>
+        <hr>
+        <form id="new-project text-white">
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">Raum Name</label>
+                <input type="text" class="form-control" id="validationDefault01" placeholder="Name" [(ngModel)]="room.name" name="roomname" required>
+              </div>
+            </div>
+            <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationDefault02">Grösse (m²)</label>
+                    <input type="number" class="form-control" id="validationDefault02" placeholder="5.6" [(ngModel)]="room.square_meter" name="squaremeter" required>
+                  </div>
+
+            </div>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="validationDefault03">Fenster</label>
+                  <input type="number" class="form-control" id="validationDefault03" placeholder="Anzahl Fenster" [(ngModel)]="room.count_windows" name="windowcount" required>
+                </div>
+
+          </div>
+          <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault04">Türen</label>
+                <input type="number" class="form-control" id="validationDefault04" placeholder="Anzahl Türen" [(ngModel)]="room.count_doors" name="doorcount" required>
+              </div>
+
+        </div>
+            <button type="button" class="btn btn-info" (click)="createRoom()">SPEICHERN</button>
+            <button type="button" class="btn btn-outline-info" (click)="goBack()">ABBRECHEN</button>
+          </form>
+      </div>
+  
+  </ng-template>

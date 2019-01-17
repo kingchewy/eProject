@@ -1,0 +1,35 @@
+.my-nav-items{
+    margin-left: 20px;
+}
+
+/* #title{
+    max-width:80px;
+    border-color: aquamarine;
+    border: 1pt;
+    word-wrap: break-word;
+} */
+
+#icon-settings{
+    height: 16px;
+    width: 16px;
+    opacity: 0.3;
+    margin-left: 5px;
+}
+
+#icon-app{
+    font-size: 50px;
+    width: 33px;
+    height: 33px;
+    opacity: 0.3;
+}
+
+#icon-home{
+    height: 25px;
+    width: 25px;
+    opacity: 0.7;
+    
+}
+
+#switch{
+    margin-top: 4px;
+}
